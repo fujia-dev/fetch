@@ -6,7 +6,8 @@ import type {
   RequestInterceptor,
   ResponseInterceptor,
 } from './interface';
-import { isFunction } from './utils';
+
+const isFunction = (val: unknown): val is CallableFunction => typeof val === 'function';
 
 export class Request {
   baseUrl?: string;

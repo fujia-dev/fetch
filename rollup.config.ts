@@ -1,4 +1,4 @@
-// import resolve from 'rollup-plugin-node-resolve';
+import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 // import sourceMaps from 'rollup-plugin-sourcemaps';
 import ts from 'rollup-plugin-typescript2';
@@ -19,24 +19,27 @@ export default [
         file: pkg.main,
         name: pkg.name,
         format: 'cjs',
-        exports: 'named' // export mode
+        exports: 'named', // export mode
       },
       {
         file: pkg.module,
         format: 'esm',
-        exports: 'named'
+        exports: 'named',
       },
       {
-        file: '',
+        file: pkg.umd,
         format: 'umd',
         exports: 'named',
-        name: '', // specify the property name of window
-      }
+        name: 'request', // specify the property name of window
+        globals: {
+          qs: 'qs',
+        },
+      },
     ],
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-    external: [],
+    external: ['qs'],
     watch: {
-      include: 'src/**'
+      include: 'src/**',
     },
     plugins: [
       // Allow json resolution
@@ -48,41 +51,20 @@ export default [
         tsconfigOverride: {
           compilerOptions: {
             module: 'esnext',
-            target: 'es5'
-          }
-        }
+            target: 'es5',
+          },
+        },
       }),
+      resolve(),
       // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
       commonjs(),
       terser(),
       // Allow node_modules resolution, so you can use 'external' to control
       // which external modules to include in the bundle
       // https://github.com/rollup/rollup-plugin-node-resolve#usage
-      // resolve(),
 
       // Resolve source maps to the original source
       // sourceMaps(),
-    ]
+    ],
   },
-  {
-    input,
-    output: {
-      file: pkg.esnext,
-      format: 'esm'
-    },
-    plugins: [
-      ts({
-        clean: true,
-        tsconfigOverride: {
-          compilerOptions: {
-            module: 'esnext',
-            target: 'esnext',
-            declaration: true,
-            declarationDir: 'dist'
-          }
-        }
-      }),
-      terser(),
-    ]
-  }
-]
+];

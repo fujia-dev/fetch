@@ -11,9 +11,8 @@
     "email": "fujia.site@outlook.com"
   },
   "main": "lib/index.js",
-  "module": "lib/fetch.esm.js",
-  "umd": "lib/fetch.min.js",
-  "esnext": "lib/fetch.esnext.js",
+  "module": "lib/request.esm.js",
+  "umd": "lib/request.min.js",
   "types": "lib/types/index.d.ts",
   "files": [
     "lib"
