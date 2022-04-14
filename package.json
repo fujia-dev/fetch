@@ -1,7 +1,7 @@
 {
   "name": "@fujia/fetch",
   "version": "0.1.0",
-  "description": "",
+  "description": "A simple http request library build on fetch",
   "keywords": [
     "library"
   ],
@@ -58,6 +58,7 @@
     "@commitlint/config-conventional": "^15.0.0",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.9",
+    "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "coveralls": "^3.1.1",
@@ -82,5 +83,7 @@
     "typedoc": "^0.22.9",
     "typescript": "^4.4.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "qs": "^6.10.3"
+  }
 }

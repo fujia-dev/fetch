@@ -5,10 +5,12 @@
 </div>
 
 <div align="center">
-  <h1></h1>
+  <h1>@fujia/fetch</h1>
 </div>
 
 <div align="center">
+
+一个基于 fetch 的简单 http 请求库。
 
 </div>
 
@@ -20,14 +22,10 @@
 
 ## 安装
 
-
 ## 使用
-
 
 ## 文档
 
-
 ## 功能
-
 
 ## 参考资料

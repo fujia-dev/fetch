@@ -10,7 +10,7 @@
 
 <div align="center">
 
-Your description
+A simple http request library build on fetch.
 
 </div>
 
@@ -20,18 +20,12 @@ English | [简体中文](./README.zh-CN.md)
 
 </div>
 
-
 ## Installation
-
 
 ## Usage
 
-
 ## Documentation
-
 
 ## Features
 
-
 ## References
-
