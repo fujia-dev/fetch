@@ -21,7 +21,7 @@ export class Request {
     this.responseInterceptor = responseInterceptor;
   }
 
-  async request(endpoint: string, options: RequestOptions = {}) {
+  async instance<D>(endpoint: string, options: RequestOptions = {}): Promise<D> {
     const { data, ...restOptions } = options;
     const config = {
       method: 'GET',
@@ -52,7 +52,7 @@ export class Request {
       const data = await response.json();
 
       if (response.ok) {
-        return data;
+        return data as D;
       } else {
         return Promise.reject(data);
       }
