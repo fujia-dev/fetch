@@ -25,7 +25,7 @@
     "lint": "eslint --ext ts 'src/**/*.ts'",
     "docs": "typedoc",
     "docs:publish": "sh scripts/docs-publish.sh",
-    "build": "rimraf dist && tsc --module commonjs && rollup -c rollup.config.ts",
+    "build": "rimraf lib && tsc --module commonjs && rollup -c rollup.config.ts",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:coverage": "jest --coverage",
