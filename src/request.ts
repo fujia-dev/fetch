@@ -15,13 +15,19 @@ export class Request {
   responseInterceptor?: ResponseInterceptor;
 
   constructor(config: RequestConfig) {
-    const { baseUrl, requestInterceptor, responseInterceptor } = config;
+    const { baseUrl, requestInterceptor, responseInterceptor } = config || {};
     this.baseUrl = baseUrl;
     this.requestInterceptor = requestInterceptor;
     this.responseInterceptor = responseInterceptor;
   }
 
-  async instance<D>(endpoint: string, options: RequestOptions = {}): Promise<D> {
+  create(config: RequestConfig) {
+    const instance = new Request(config);
+
+    return instance.request;
+  }
+
+  request = <D>(endpoint: string, options: RequestOptions = {}): Promise<D> => {
     const { data, ...restOptions } = options;
     const config = {
       method: 'GET',
@@ -57,5 +63,5 @@ export class Request {
         return Promise.reject(data);
       }
     });
-  }
+  };
 }
