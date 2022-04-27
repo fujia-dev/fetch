@@ -1,10 +1,4 @@
 <div align="center">
-  <a href="" target="_blank">
-    <img alt="" width="200" src=""/>
-  </a>
-</div>
-
-<div align="center">
   <h1>@fujia/fetch</h1>
 </div>
 
@@ -20,12 +14,62 @@ English | [简体中文](./README.zh-CN.md)
 
 </div>
 
-## Installation
+## Installing
+
+Using npm:
+
+```sh
+npm install @fujia/fetch
+```
+
+Using yarn:
+
+```sh
+yarn add @fujia/fetch
+```
+
+Using unpkg CDN:
+
+```html
+<script src="https://unpkg.com/@fujia/fetch/lib/request.min.js" />
+```
 
 ## Usage
 
-## Documentation
+A simple example as follows:
 
-## Features
+```js
+import { Request } from '@fujia/fetch';
+
+type User = {
+  id: string;
+  name: string;
+  avatar?: string;
+};
+
+interface UserData {
+  success: boolean;
+  data?: User;
+}
+
+const request = Request.create({
+  baseUrl: 'http://localhost:3001',
+  requestInterceptor: (config) => {
+    config.headers['authorization'] = `Bearer token`;
+
+    return config;
+  },
+});
+
+export const asyncFetchUserInfo = async () => {
+  const res = await request<UserData>('/user'});
+
+  if (res.success) {
+    console.log(res.data);
+  }
+};
+```
 
 ## References
+
+1. [window.fetch/mdn](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)

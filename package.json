@@ -3,7 +3,8 @@
   "version": "0.5.1",
   "description": "A simple http request library build on fetch",
   "keywords": [
-    "library"
+    "fetch",
+    "request"
   ],
   "author": {
     "name": "fujia",
@@ -19,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/fujia-dev/fetch"
   },
   "scripts": {
     "lint": "eslint --ext ts 'src/**/*.ts'",
