@@ -4,6 +4,7 @@ export interface FetchResponse extends ResponseInit {
 
 export interface RequestOptions extends RequestInit {
   data?: any;
+  [key: string]: any;
 }
 
 export interface RequestInterceptor<T = RequestOptions> {

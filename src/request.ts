@@ -29,7 +29,7 @@ export class Request {
 
   request = <D>(endpoint: string, options: RequestOptions = {}): Promise<D> => {
     const { data, ...restOptions } = options;
-    const config = {
+    let config: Partial<RequestOptions> = {
       method: 'GET',
       headers: {
         'Content-Type': data ? 'application/json' : '',
@@ -37,7 +37,7 @@ export class Request {
       ...restOptions,
     };
 
-    if (config.method.toUpperCase() === 'GET') {
+    if (config?.method?.toUpperCase() === 'GET') {
       // eslint-disable-next-line no-param-reassign
       endpoint += `?${qs.stringify(data)}`;
     } else {
@@ -46,6 +46,10 @@ export class Request {
       } catch (error) {
         console.error(error);
       }
+    }
+
+    if (isFunction(this.requestInterceptor)) {
+      config = this.requestInterceptor(config);
     }
 
     const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
