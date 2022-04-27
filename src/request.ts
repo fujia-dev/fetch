@@ -21,7 +21,7 @@ export class Request {
     this.responseInterceptor = responseInterceptor;
   }
 
-  create(config: RequestConfig) {
+  static create(config: RequestConfig) {
     const instance = new Request(config);
 
     return instance.request;
