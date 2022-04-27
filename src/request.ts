@@ -48,7 +48,7 @@ export class Request {
       }
     }
 
-    const _url = this.baseUrl ? `${this.baseUrl}/${endpoint}` : endpoint;
+    const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
 
     return window.fetch(_url, config).then(async (response) => {
       if (isFunction(this.responseInterceptor)) {
