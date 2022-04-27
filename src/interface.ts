@@ -2,8 +2,9 @@ export interface FetchResponse extends ResponseInit {
   request?: any;
 }
 
-export interface RequestOptions extends RequestInit {
+export interface RequestOptions extends Omit<RequestInit, 'headers'> {
   data?: any;
+  headers?: Record<string, string>;
   [key: string]: any;
 }
 
