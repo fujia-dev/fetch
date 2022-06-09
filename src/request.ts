@@ -37,7 +37,7 @@ export class Request {
       ...restOptions,
     };
 
-    if (config?.method?.toUpperCase() === 'GET') {
+    if (config?.method?.toUpperCase() === 'GET' || config?.method?.toUpperCase() === 'PATCH') {
       // eslint-disable-next-line no-param-reassign
       endpoint += `?${qs.stringify(data)}`;
     } else {
