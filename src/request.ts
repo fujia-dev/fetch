@@ -59,12 +59,16 @@ export class Request {
         this.responseInterceptor(response);
       }
 
-      const data = await response.json();
+      try {
+        const data = await response.json();
 
-      if (response.ok) {
-        return data as D;
-      } else {
-        return Promise.reject(data);
+        if (response.ok) {
+          return data as D;
+        } else {
+          return Promise.reject(data);
+        }
+      } catch (error) {
+        return Promise.reject(error);
       }
     });
   };
