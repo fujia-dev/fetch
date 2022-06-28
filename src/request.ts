@@ -30,7 +30,7 @@ export class Request {
     return instance.request;
   }
 
-  async request<D>(endpoint: `/${string}`, options: RequestOptions = {}) {
+  request = async <D>(endpoint: `/${string}`, options: RequestOptions = {}) => {
     const { data, ...restOptions } = options;
     const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
 
@@ -70,5 +70,5 @@ export class Request {
     } catch (err: any) {
       throw new Error(err);
     }
-  }
+  };
 }
