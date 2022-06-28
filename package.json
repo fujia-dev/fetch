@@ -37,7 +37,7 @@
     "prepare": "husky install",
     "travis-deploy-once": "travis-deploy-once",
     "prerelease": "npm run build",
-    "release": "sh scripts/release.sh"
+    "release": "stage release"
   },
   "commitlint": {
     "extends": [
