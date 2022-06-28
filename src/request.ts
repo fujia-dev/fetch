@@ -32,7 +32,6 @@ export class Request {
 
   request = async <D>(endpoint: `/${string}`, options: RequestOptions = {}) => {
     const { data, ...restOptions } = options;
-    const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
 
     let config: Partial<RequestOptions> = {
       method: 'GET',
@@ -53,6 +52,8 @@ export class Request {
       if (isFunction(this.requestInterceptor)) {
         config = this.requestInterceptor(config);
       }
+
+      const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
 
       const response = await fetch(_url, config);
 
