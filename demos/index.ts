@@ -14,7 +14,9 @@ interface UserData {
 const request = Request.create({
   baseUrl: 'http://localhost:3001',
   requestInterceptor: (config) => {
-    config.headers['authorization'] = `Bearer token`;
+    if (config.headers) {
+      config.headers['authorization'] = `Bearer token`;
+    }
 
     return config;
   },

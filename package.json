@@ -28,6 +28,7 @@
     "docs:publish": "sh scripts/docs-publish.sh",
     "build": "rimraf lib && tsc --module commonjs && rollup -c rollup.config.ts",
     "start": "rollup -c rollup.config.ts -w",
+    "demo": "node -r ts-node/register/transpile-only demos/index.ts",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",

@@ -17,7 +17,7 @@ export interface ResponseInterceptor<T = FetchResponse> {
 }
 
 export interface RequestConfig {
-  baseUrl?: `/${string}`;
+  baseUrl?: string;
   timeout?: number;
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;

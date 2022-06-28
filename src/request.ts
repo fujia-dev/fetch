@@ -10,13 +10,14 @@ import type {
 const isFunction = (val: unknown): val is CallableFunction => typeof val === 'function';
 
 export class Request {
-  baseUrl?: `/${string}`;
+  baseUrl?: string;
   timeout?: number;
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;
 
   constructor(config: RequestConfig) {
     const { baseUrl, timeout, requestInterceptor, responseInterceptor } = config || {};
+
     this.baseUrl = baseUrl;
     this.timeout = timeout || 20000;
     this.requestInterceptor = requestInterceptor;
