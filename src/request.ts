@@ -10,13 +10,15 @@ import type {
 const isFunction = (val: unknown): val is CallableFunction => typeof val === 'function';
 
 export class Request {
-  baseUrl?: string;
+  baseUrl?: `/${string}`;
+  timeout?: number;
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;
 
   constructor(config: RequestConfig) {
-    const { baseUrl, requestInterceptor, responseInterceptor } = config || {};
+    const { baseUrl, timeout, requestInterceptor, responseInterceptor } = config || {};
     this.baseUrl = baseUrl;
+    this.timeout = timeout || 20000;
     this.requestInterceptor = requestInterceptor;
     this.responseInterceptor = responseInterceptor;
   }
@@ -27,8 +29,10 @@ export class Request {
     return instance.request;
   }
 
-  request = <D>(endpoint: string, options: RequestOptions = {}): Promise<D> => {
+  async request<D>(endpoint: `/${string}`, options: RequestOptions = {}) {
     const { data, ...restOptions } = options;
+    const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
+
     let config: Partial<RequestOptions> = {
       method: 'GET',
       headers: {
@@ -37,39 +41,33 @@ export class Request {
       ...restOptions,
     };
 
-    if (config?.method?.toUpperCase() === 'GET' || config?.method?.toUpperCase() === 'PATCH') {
-      // eslint-disable-next-line no-param-reassign
-      endpoint += `?${qs.stringify(data)}`;
-    } else {
-      try {
+    try {
+      if (config?.method?.toUpperCase() === 'GET' || config?.method?.toUpperCase() === 'PATCH') {
+        // eslint-disable-next-line no-param-reassign
+        endpoint += `?${qs.stringify(data)}`;
+      } else {
         config.body = JSON.stringify(data || {});
-      } catch (error) {
-        console.error(error);
       }
-    }
 
-    if (isFunction(this.requestInterceptor)) {
-      config = this.requestInterceptor(config);
-    }
+      if (isFunction(this.requestInterceptor)) {
+        config = this.requestInterceptor(config);
+      }
 
-    const _url = this.baseUrl ? `${this.baseUrl}/${endpoint.replace(/\//, '')}` : endpoint;
+      const response = await fetch(_url, config);
 
-    return window.fetch(_url, config).then(async (response) => {
       if (isFunction(this.responseInterceptor)) {
         this.responseInterceptor(response);
       }
 
-      try {
-        const data = await response.json();
+      const result = await response.json();
 
-        if (response.ok) {
-          return data as D;
-        } else {
-          return Promise.reject(data);
-        }
-      } catch (error) {
-        return Promise.reject(error);
+      if (response.ok) {
+        return result as D;
       }
-    });
-  };
+
+      throw new Error(result);
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  }
 }
